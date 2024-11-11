@@ -116,8 +116,11 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(
                     height: 24.h,
                   ),
-                  CustomButton(title: 'LOG IN', onTapped: () {
-                    controller.loginUser();
+                  CustomButton(
+                      title: 'LOG IN',
+                      disable: controller.loading,
+                      onTapped: () {
+                    controller.loginUser(context);
                   }),
                   const SizedBox(
                     height: 24,

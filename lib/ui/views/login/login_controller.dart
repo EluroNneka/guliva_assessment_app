@@ -41,29 +41,28 @@ class LoginController extends GetxController {
     return _obscure;
   }
 
-  Future<http.Response> loginUser() async {
+  Future loginUser(BuildContext context) async {
     final Map<String, String> header = {
       'content-Type': 'application/json',
     };
+    loading = true;
+    update();
 
-    Get.dialog(SizedBox(
-      height: 20.h,
-        width: 20.w,
-        child: const CircularProgressIndicator()));
+
     final Map<String, dynamic> payload = {
       "email": _email,
       "password": _password,
     };
 
-
     final response = await http.post(Uri.parse(loginUrl), body: jsonEncode(payload));
 
-
     debugPrint("The response: ${response.body}");
-
-    Get.close(1);
+    loading = false;
+    update();
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Logged In Successfully')));
+
     } else {
       throw Exception('Failed to load');
     }

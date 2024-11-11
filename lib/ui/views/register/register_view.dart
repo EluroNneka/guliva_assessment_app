@@ -5,6 +5,7 @@ import 'package:guliva_assessment_app/nav/routes.dart';
 import 'package:guliva_assessment_app/ui/views/register/register_controller.dart';
 import 'package:guliva_assessment_app/ui/widgets/custom_button.dart';
 import 'package:guliva_assessment_app/ui/widgets/custom_button2.dart';
+import 'package:guliva_assessment_app/ui/widgets/custom_date_picker.dart';
 import 'package:guliva_assessment_app/ui/widgets/custom_textfield.dart';
 
 class RegisterView extends StatefulWidget {
@@ -119,12 +120,10 @@ class _RegisterViewState extends State<RegisterView> {
                   SizedBox(
                     height: 16.h,
                   ),
-                  CustomTextField(
+                  CustomDatePicker(
                     label: "Date of Birth",
-                    onChanged: (v) {
-                      controller.setDob(v);
-                    },
-                  ),
+                      placeholder: '',
+                      onDateSelected: (date){  controller.setDob(date);}),
                   SizedBox(
                     height: 16.h,
                   ),
@@ -187,8 +186,9 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                   CustomButton(
                       title: 'SIGN UP',
+                      disable: controller.loading,
                       onTapped: () {
-                        controller.registerUser();
+                        controller.registerUser(context);
                       }),
                   SizedBox(
                     height: 24.h,

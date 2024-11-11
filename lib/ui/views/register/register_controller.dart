@@ -64,19 +64,20 @@ class RegisterController extends GetxController {
 
   void setDob(String val) {
     _dob = val;
+    debugPrint(_dob);
     update();
   }
 
   String? getDob() {
+    debugPrint(_dob);
     return _dob;
   }
 
-  Future<http.Response> registerUser() async {
+  Future registerUser(BuildContext context) async {
     final Map<String, String> header = {
       'content-Type': 'application/json',
     };
 
-    Get.dialog(CircularProgressIndicator());
     final Map<String, dynamic> payload = {
       "firstName": _firstName,
       "lastName": _lastName,
@@ -86,15 +87,18 @@ class RegisterController extends GetxController {
       "password": _password,
       "withEmail": true,
     };
-
     loading = true;
+    update();
+
     final response = await http.post(Uri.parse(registerUrl), body: payload);
 
     debugPrint("The response: ${response.body}");
-    Get.close(1);
-    loading = false;
+   loading = false;
+   update();
+
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User Registered Successfully')));
 
     } else {
       throw Exception('Failed to load');
