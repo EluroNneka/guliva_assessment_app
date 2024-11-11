@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -12,8 +10,9 @@ class RegisterController extends GetxController {
   String? _lastName;
   String? _phone;
   String? _dob;
-
+  bool? _obscure = true;
   bool loading = false;
+  bool acceptTerms = false;
 
   String registerUrl = "${env['API']}/user/register";
 
@@ -35,6 +34,16 @@ class RegisterController extends GetxController {
     return _password;
   }
 
+
+  void setObscured() {
+    _obscure = !_obscure!;
+    update();
+  }
+
+  bool? getObscured() {
+    return _obscure;
+  }
+
   void setFirstName(String val) {
     _firstName = val;
     update();
@@ -45,7 +54,7 @@ class RegisterController extends GetxController {
   }
 
   void setLastName(String val) {
-    _password = val;
+    _lastName = val;
     update();
   }
 
@@ -69,15 +78,15 @@ class RegisterController extends GetxController {
   }
 
   String? getDob() {
-    debugPrint(_dob);
     return _dob;
   }
 
-  Future registerUser(BuildContext context) async {
-    final Map<String, String> header = {
-      'content-Type': 'application/json',
-    };
+  void setAcceptTerms() {
+    acceptTerms = !acceptTerms;
+    update();
+  }
 
+  Future registerUser(BuildContext context) async {
     final Map<String, dynamic> payload = {
       "firstName": _firstName,
       "lastName": _lastName,
@@ -85,22 +94,24 @@ class RegisterController extends GetxController {
       "email": _email,
       "phoneNo": _phone,
       "password": _password,
-      "withEmail": true,
+      "withEmail": "0",
     };
-    loading = true;
-    update();
-
+    Get.showSnackbar(GetSnackBar(message: 'Loading....'));
+    debugPrint(payload.toString());
     final response = await http.post(Uri.parse(registerUrl), body: payload);
 
+
     debugPrint("The response: ${response.body}");
-   loading = false;
-   update();
+
+    loading = false;
+    Get.closeCurrentSnackbar();
+    update();
 
     if (response.statusCode == 200) {
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User Registered Successfully')));
-
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User Registered Successfully')));
     } else {
+      Get.closeAllSnackbars();
       throw Exception('Failed to load');
     }
   }

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +15,7 @@ class CustomDatePicker extends StatefulWidget {
   final bool? greyLabelStyle;
 
   const CustomDatePicker({
-    Key? key,
+    super.key,
     this.label,
     this.value,
     this.placeholder,
@@ -27,10 +25,10 @@ class CustomDatePicker extends StatefulWidget {
     required this.onDateSelected,
     this.enabled = true,
     this.greyLabelStyle = false,
-  }) : super(key: key);
+  });
 
   @override
-  _CustomDatePickerState createState() => _CustomDatePickerState();
+  State<CustomDatePicker> createState() => _CustomDatePickerState();
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
@@ -40,8 +38,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   void initState() {
     super.initState();
-    print(widget.startDate?.year);
-    print(widget.initialDate?.year);
+
     if (widget.value != null) {
       date = widget.value!;
     }
@@ -119,19 +116,16 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             margin: EdgeInsets.only(bottom: 5.w),
             child: Text(
               widget.label!,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w300
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
             ),
           ),
         SizedBox(
           height: 54.h,
           child: InkWell(
             onTap:
-            widget.enabled ? () async => await showPicker(context) : () {},
+                widget.enabled ? () async => await showPicker(context) : () {},
             child: Container(
-              padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 12.h),
+              padding: EdgeInsets.fromLTRB(16.w, 12.h, 30.w, 12.h),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(8.r),
@@ -141,13 +135,14 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   Expanded(
                     child: Text(
                       date.isNotEmpty ? date : '${widget.placeholder}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
-                  Icon(Icons.calendar_today_outlined,
+                  Icon(
+                    Icons.calendar_today_outlined,
                     size: 16.w,
                     color: const Color(0xff152230),
                   ),

@@ -75,14 +75,17 @@ class CustomTextField extends StatelessWidget {
           textCapitalization: textCapitalization,
           validator: (val) {
             if (val == null) return 'Invalid input';
-            if (type == TextFieldType.email) {
-              final bool isValidEmail = val.contains(validEmail);
-              return isValidEmail
-                  ? null
-                  : "Please provide a valid email address";
+            if (validator == null) {
+              if (type == TextFieldType.email) {
+                final bool isValidEmail = val.contains(validEmail);
+                return isValidEmail
+                    ? null
+                    : "Please provide a valid email address";
+              }
             } else {
               validator!(val);
-            } return null;
+            }
+            return null;
           },
           inputFormatters: getFormartter(),
           enableInteractiveSelection: true,
@@ -176,16 +179,7 @@ class CustomTextField extends StatelessWidget {
   }) {
     if (type == TextFieldType.password || type == TextFieldType.setPassword) {
       return obscuredText == null
-          ? /*IconButton(
-              padding: EdgeInsets.all(0.0),
-              icon: Icon(
-                Icons.error_outline_sharp,
-                color: Colors.red,
-              ),
-              onPressed: obscurePassword,
-              iconSize: 20.h,
-            )*/
-          const SizedBox()
+          ? const SizedBox()
           : GestureDetector(
               onTap: obscurePassword,
               child: obscuredText == true
@@ -198,7 +192,7 @@ class CustomTextField extends StatelessWidget {
     if (type == TextFieldType.phone) {
       return [
         FilteringTextInputFormatter.digitsOnly,
-        LengthLimitingTextInputFormatter(10),
+        LengthLimitingTextInputFormatter(11),
       ];
     } else if (type == TextFieldType.name) {
       return [FilteringTextInputFormatter.allow(RegExp("[a-z A-Z-]"))];
