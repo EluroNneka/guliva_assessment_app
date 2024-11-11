@@ -76,6 +76,7 @@ class RegisterController extends GetxController {
       'content-Type': 'application/json',
     };
 
+    Get.dialog(CircularProgressIndicator());
     final Map<String, dynamic> payload = {
       "firstName": _firstName,
       "lastName": _lastName,
@@ -90,7 +91,7 @@ class RegisterController extends GetxController {
     final response = await http.post(Uri.parse(registerUrl), body: payload);
 
     debugPrint("The response: ${response.body}");
-
+    Get.close(1);
     loading = false;
     if (response.statusCode == 200) {
       return jsonDecode(response.body);

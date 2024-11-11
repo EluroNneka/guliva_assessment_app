@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,18 +46,22 @@ class LoginController extends GetxController {
       'content-Type': 'application/json',
     };
 
+    Get.dialog(SizedBox(
+      height: 20.h,
+        width: 20.w,
+        child: const CircularProgressIndicator()));
     final Map<String, dynamic> payload = {
       "email": _email,
       "password": _password,
     };
 
-    loading = true;
 
-    final response = await http.post(Uri.parse(loginUrl), body: payload);
-    loading = false;
+    final response = await http.post(Uri.parse(loginUrl), body: jsonEncode(payload));
+
 
     debugPrint("The response: ${response.body}");
 
+    Get.close(1);
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
