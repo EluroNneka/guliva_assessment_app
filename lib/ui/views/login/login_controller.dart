@@ -8,9 +8,10 @@ class LoginController extends GetxController {
   String? _email;
   String? _password;
   bool? _obscure;
+  bool loading = false;
 
 
-  String loginUrl = "${env['BASE_URL']}/user/register";
+  String loginUrl = "${env['API']}/user/login";
 
   void setEmail(String val) {
     _email = val;
@@ -39,7 +40,7 @@ class LoginController extends GetxController {
     return _obscure;
   }
 
-  Future<http.Response> registerUser() async {
+  Future<http.Response> loginUser() async {
     final Map<String, String> header = {
       'content-Type': 'application/json',
     };
@@ -49,7 +50,10 @@ class LoginController extends GetxController {
       "password": _password,
     };
 
+    loading = true;
+
     final response = await http.post(Uri.parse(loginUrl), body: payload);
+    loading = false;
 
     debugPrint("The response: ${response.body}");
 

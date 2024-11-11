@@ -13,7 +13,9 @@ class RegisterController extends GetxController {
   String? _phone;
   String? _dob;
 
-  String registerUrl = "${env['BASE_URL']}/user/register";
+  bool loading = false;
+
+  String registerUrl = "${env['API']}/user/register";
 
   void setEmail(String val) {
     _email = val;
@@ -84,12 +86,15 @@ class RegisterController extends GetxController {
       "withEmail": true,
     };
 
+    loading = true;
     final response = await http.post(Uri.parse(registerUrl), body: payload);
 
     debugPrint("The response: ${response.body}");
 
+    loading = false;
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
+
     } else {
       throw Exception('Failed to load');
     }

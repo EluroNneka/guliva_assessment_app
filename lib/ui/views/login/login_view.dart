@@ -17,7 +17,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<LoginController>(builder: (controller) {
+    return GetBuilder<LoginController>(
+        builder: (controller) {
       return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -115,7 +116,9 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(
                     height: 24.h,
                   ),
-                  CustomButton(title: 'LOG IN', onTapped: () {}),
+                  CustomButton(title: 'LOG IN', onTapped: () {
+                    controller.loginUser();
+                  }),
                   const SizedBox(
                     height: 24,
                   ),

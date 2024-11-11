@@ -140,42 +140,47 @@ class _RegisterViewState extends State<RegisterView> {
                   SizedBox(
                     height: 24.h,
                   ),
-                  Row(
-                    children: [
-                      Checkbox(value: false, onChanged: (v) {}),
-                      RichText(
-                          text: const TextSpan(children: [
-                        TextSpan(
-                          text: 'I agree to the ',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                  SizedBox(
+                    width: 350.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Checkbox(value: false, onChanged: (v) {}),
+                        Flexible(
+                          child: RichText(
+                              text: const TextSpan(children: [
+                            TextSpan(
+                              text: 'I agree to the ',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Terms & Conditions ',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.deepOrange,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'and ',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Privacy Policy',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.deepOrange,
+                              ),
+                            ),
+                          ])),
                         ),
-                        TextSpan(
-                          text: 'Terms & Conditions ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.deepOrange,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'and ',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'Privacy Policy',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.deepOrange,
-                          ),
-                        ),
-                      ])),
-                      const InkWell(
-                        child: Text('Sign Up'),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 24.h,
