@@ -34,8 +34,6 @@ dependencies:
   http:
   flutter_screenutil: 5.9.0
   flutter_dotenv: 4.0.0-nullsafety.1
-  hive: null
-  hive_flutter: null
   get: ^4.6.1
 
 
