@@ -5,16 +5,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class RegisterController extends GetxController{
-
+class RegisterController extends GetxController {
   String? _email;
   String? _password;
   String? _firstName;
   String? _lastName;
   String? _phone;
   String? _dob;
-
-
 
   String registerUrl = "${env['BASE_URL']}/user/register";
 
@@ -23,7 +20,7 @@ class RegisterController extends GetxController{
     update();
   }
 
-  String? getEmail(){
+  String? getEmail() {
     return _email;
   }
 
@@ -32,7 +29,7 @@ class RegisterController extends GetxController{
     update();
   }
 
-  String? getPassword(){
+  String? getPassword() {
     return _password;
   }
 
@@ -41,7 +38,7 @@ class RegisterController extends GetxController{
     update();
   }
 
-  String? getFirstName(){
+  String? getFirstName() {
     return _firstName;
   }
 
@@ -50,7 +47,7 @@ class RegisterController extends GetxController{
     update();
   }
 
-  String? getLastName(){
+  String? getLastName() {
     return _lastName;
   }
 
@@ -59,7 +56,7 @@ class RegisterController extends GetxController{
     update();
   }
 
-  String? getPhone(){
+  String? getPhone() {
     return _phone;
   }
 
@@ -68,17 +65,16 @@ class RegisterController extends GetxController{
     update();
   }
 
-  String? getDob(){
+  String? getDob() {
     return _dob;
   }
 
-
-  Future <http.Response> registerUser() async {
+  Future<http.Response> registerUser() async {
     final Map<String, String> header = {
       'content-Type': 'application/json',
     };
 
-    final Map<String,dynamic> payload = {
+    final Map<String, dynamic> payload = {
       "firstName": _firstName,
       "lastName": _lastName,
       "dob": _dob,
@@ -88,18 +84,14 @@ class RegisterController extends GetxController{
       "withEmail": true,
     };
 
-    final response = await http.post(Uri.parse(registerUrl),
-    body: payload);
+    final response = await http.post(Uri.parse(registerUrl), body: payload);
 
     debugPrint("The response: ${response.body}");
 
     if (response.statusCode == 200) {
-
       return jsonDecode(response.body);
-
     } else {
       throw Exception('Failed to load');
     }
-
   }
 }

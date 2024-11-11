@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:guliva_assessment_app/core/utils/config.dart';
 import 'package:guliva_assessment_app/nav/routes.dart';
-import 'package:guliva_assessment_app/ui/views/login/login_view.dart';
 import 'package:guliva_assessment_app/ui/views/splash_view.dart';
 
 import 'core/utils/overlay_util.dart';

@@ -4,7 +4,6 @@ import 'package:guliva_assessment_app/ui/views/login/login_view.dart';
 import 'package:guliva_assessment_app/ui/views/register/register_view.dart';
 import 'package:guliva_assessment_app/ui/views/splash_view.dart';
 
-
 class Routes {
   static const String splash = '/splash';
   static const String register = '/register';
@@ -16,17 +15,17 @@ class Routers {
   final List<GetPage> views = [
     GetPage(
       name: Routes.splash,
-      page: () => SplashView(),
+      page: () => const SplashView(),
       binding: AppBinding(),
     ),
     GetPage(
       name: Routes.login,
-      page: () => LoginView(),
+      page: () => const LoginView(),
       binding: AppBinding(),
     ),
     GetPage(
       name: Routes.register,
-      page: () => RegisterView(),
+      page: () => const RegisterView(),
       binding: AppBinding(),
     ),
   ];
